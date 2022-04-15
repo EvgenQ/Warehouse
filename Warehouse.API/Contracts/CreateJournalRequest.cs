@@ -1,4 +1,6 @@
-﻿namespace Warehouse.API
+﻿using Warehouse.Domain;
+
+namespace Warehouse.API.Contracts
 {
     public class CreateJournalRequest
     {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Warehouse.API.Contracts;
 using Warehouse.Domain;
 
 namespace Warehouse.API.Controllers
@@ -24,6 +25,24 @@ namespace Warehouse.API.Controllers
                 _logger.LogError("{errors}", errors);
                 return BadRequest(errors);
             }
+
+            int journalId = JournalsRepository.Add(journal);
+
+            return Ok(journalId);
+        }
+
+        [HttpPost("{journalId:int}/products")]
+        public async Task<IActionResult> AddProduct([FromRoute]int journalId, AddProductsRequest request)
+        {
+            var journal = JournalsRepository.Get(journalId);
+            if (journal is null)
+            {
+                return NotFound($"Журнал с id - {journalId} не найден");
+            }
+
+            journal.AddProduct(request.ProductIds);
+
+            JournalsRepository.Update(journal);
 
             return Ok(journal);
         }
