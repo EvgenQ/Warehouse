@@ -2,7 +2,7 @@
 {
     public enum ProductCategory
     {
-        Соления = 0,
-        СвежиеОвощи = 1,
+        Pickles = 0,
+        Fresh_vegetables = 1,
     }
 }
