@@ -6,7 +6,7 @@
 
         private Product(string? name, string? description, double totalPrice, double pricePerKg, double weight, ProductCategory category)
         {
-            Id = GetNewID();
+            GetNewID();
             Name = name;
             Description = description;
             TotalPrice = totalPrice;
@@ -15,7 +15,7 @@
             Category = category;
         }
 
-        public int Id { get; }
+        public int Id { get => _id; }
 
         public string? Name { get; }
 

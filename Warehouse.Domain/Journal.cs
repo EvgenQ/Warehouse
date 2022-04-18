@@ -2,20 +2,24 @@
 {
     public record Journal
     {
-        private List<int> _products;
+        private List<int> _productsID;
+        private readonly List<Product> _productsp;
 
         private Journal(int id, DateTime createdDate, int[] products)
         {
             Id = id;
             CreatedDate = createdDate;
-            _products = new List<int>(products);
+            _productsID = new List<int>(products);
+            _productsp = new List<Product>();
         }
 
         public int Id { get; init; }
 
         public DateTime CreatedDate { get; }
 
-        public int[] Products => _products.ToArray();
+        public int[] Products => _productsID.ToArray();
+
+        public List<Product> ProductsP { get => _productsp; }
 
         public bool AddProduct(params int[] products)
         {
@@ -24,7 +28,14 @@
                return false;
             }
 
-            _products.AddRange(products);
+            _productsID.AddRange(products);
+            return true;
+        }
+
+        public bool AddProduct(Product product)
+        {
+            _productsp.Add(product);
+
             return true;
         }
 

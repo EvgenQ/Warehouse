@@ -32,6 +32,8 @@ namespace Warehouse.API.Controllers
                 return BadRequest(errors);
             }
 
+            ProductRepository.Add(product);
+
             return Ok(product);
         }
     }

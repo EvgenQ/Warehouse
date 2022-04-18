@@ -20,6 +20,11 @@ namespace Warehouse.API.Controllers
 
         public static Product? Get(int productId)
         {
+            if (_products.FirstOrDefault(x => x.Id == productId) == null)
+            {
+                return null;
+            }
+
             return _products.FirstOrDefault(x => x.Id == productId);
         }
 

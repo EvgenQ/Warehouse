@@ -42,9 +42,23 @@ namespace Warehouse.API.Controllers
 
             journal.AddProduct(request.ProductIds);
 
+            for (int i = 0; i < request.ProductIds.Length; i++)
+            {
+                if (ProductRepository.Get(request.ProductIds[i]) != null)
+                {
+                    journal.AddProduct(ProductRepository.Get(request.ProductIds[i]));
+                }
+            }
+
             JournalsRepository.Update(journal);
 
             return Ok(journal);
+        }
+
+        [HttpGet("{journalsId:int}")]
+        public async Task<IActionResult> Get([FromRoute]int journalsId)
+        {
+            return Ok(JournalsRepository.Get(journalsId));
         }
     }
 }
