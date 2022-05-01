@@ -1,12 +1,17 @@
 ﻿namespace Warehouse.Domain
 {
-    public class Product
+    public record Product
     {
-        private static int _id;
-
-        private Product(string? name, string? description, double totalPrice, double pricePerKg, double weight, ProductCategory category)
+        private Product(
+            int id,
+            string? name,
+            string? description,
+            double totalPrice,
+            double pricePerKg,
+            double weight,
+            ProductCategory category)
         {
-            GetNewID();
+            Id = id;
             Name = name;
             Description = description;
             TotalPrice = totalPrice;
@@ -15,7 +20,7 @@
             Category = category;
         }
 
-        public int Id { get => _id; }
+        public int Id { get; init; }
 
         public string? Name { get; }
 
@@ -29,9 +34,7 @@
 
         public ProductCategory Category { get; }
 
-        private int GetNewID() => _id++;
-
-        public static (Product? Result, string[] Error) CreateProduct(string? name, string? description, double pricePerKg, double weight, ProductCategory category) 
+        public static (Product? Result, string[] Error) CreateProduct(string? name, string? description, double pricePerKg, double weight, ProductCategory category)
         {
             double totalPrice = weight * pricePerKg;
 

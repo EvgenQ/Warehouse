@@ -8,6 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AutoFixture" Version="4.17.0" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
 		<PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.406">
 			<PrivateAssets>all</PrivateAssets>
@@ -28,7 +29,7 @@
 		<ProjectReference Include="..\Warehouse.BL\Warehouse.BL.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-		<AdditionalFiles Include="..\stylecop.json"/>
+		<AdditionalFiles Include="..\stylecop.json" />
 	</ItemGroup>
 
 </Project>

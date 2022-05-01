@@ -3,14 +3,14 @@
     public record Journal
     {
         private List<int> _productsID;
-        private readonly List<Product> _productsp;
+        private readonly List<Product> _products;
 
         private Journal(int id, DateTime createdDate, int[] products)
         {
             Id = id;
             CreatedDate = createdDate;
             _productsID = new List<int>(products);
-            _productsp = new List<Product>();
+            _products = new List<Product>();
         }
 
         public int Id { get; init; }
@@ -19,7 +19,7 @@
 
         public int[] Products => _productsID.ToArray();
 
-        public List<Product> ProductsP { get => _productsp; }
+        public List<Product> ProductsP { get => _products; }
 
         public bool AddProduct(params int[] products)
         {
@@ -34,14 +34,26 @@
 
         public bool AddProduct(Product product)
         {
-            _productsp.Add(product);
+            foreach (var productItem in _products)
+            {
+                if (productItem != product)
+                {
+                    _products.Add(productItem);
+                }
+                else
+                {
+                    return false;
+                }
+            }
 
             return true;
         }
 
         public static (Journal? Result, string[] Errors) Create(DateTime createdDate)
         {
-            if (createdDate.Day < DateTime.Today.Day)
+            var endOfToday = DateTime.Today.AddDays(1).AddMilliseconds(-1); // конец сегоднешнего дня
+
+            if (createdDate < endOfToday)
             {
                 return (null, new[] { "Дата создания журнала меньше сегодняшней даты." });
             }

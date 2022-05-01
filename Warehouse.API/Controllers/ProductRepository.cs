@@ -11,9 +11,12 @@ namespace Warehouse.API.Controllers
     {
         private static List<Product> _products = new List<Product>();
 
+        private static int _latestProductId = 0;
+
         public static int Add(Product product)
         {
-            _products.Add(product);
+            _latestProductId++;
+            _products.Add(product with { Id = _latestProductId });
 
             return product.Id;
         }
